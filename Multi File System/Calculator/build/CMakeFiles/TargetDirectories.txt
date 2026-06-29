@@ -1,0 +1,3 @@
+D:/Codes/C++/Multi File System/Calculator/build/CMakeFiles/calc.dir
+D:/Codes/C++/Multi File System/Calculator/build/CMakeFiles/ALL_BUILD.dir
+D:/Codes/C++/Multi File System/Calculator/build/CMakeFiles/ZERO_CHECK.dir
