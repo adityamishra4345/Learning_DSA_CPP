@@ -1,47 +1,49 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-long long merge(vector<int>& arr,int left,int mid,int right){
-    vector<int> L;
-    vector<int> R;
-    long long count = 0;
-    for(int i=left;i<=mid;i++) L.push_back(arr[i]);
-    for(int i=mid+1;i<=right;i++) R.push_back(arr[i]);
 
-    int i=0;
-    int j=0;
-    int k=left;
-    while(i<L.size()&&j<R.size()){
-        if(L[i]<=R[j]){
-            arr[k]=L[i];
-            k++;i++;
+void merge(vector<int> &arr,int left ,int right , int mid,int& inv){
+    int i=left;
+    int j=mid+1;
+    vector<int> temp;
+    while(i<=mid && j<=right){
+        if(arr[i]<arr[j]){
+            temp.push_back(arr[i]);
+            i++;
         }
         else{
-            count+=(mid-left+1)-i;
-            arr[k]=R[j];
-            k++;j++;
+            temp.push_back(arr[j]);
+            j++;
+            inv+=(mid-i+1);
         }
     }
-    while(i<L.size()) arr[k++]=L[i++];
-    while(j<R.size()) arr[k++]=R[j++];
+    while(i<=mid){
+        temp.push_back(arr[i]);
+        i++;
+    }
+    while(j<=right){
+        temp.push_back(arr[j]);
+        j++;
+    }
+    i=0;
+    for(int k=left;k<=right;k++){
+        arr[k]=temp[i];
+        i++;
+    }
     
-    return count;
 }
 
-long long mergecount(vector<int>& arr , int left , int right){
-
-    if(left>=right) return 0;
-    long long count=0;
+void ms(vector<int>& arr,int left , int right,int& inv){
+    if(left==right) return ;
     int mid=(left+right)/2;
-    count+=mergecount(arr,left,mid);
-    count+=mergecount(arr,mid+1,right);
-    count+=merge(arr,left,mid,right);
-
-    return count;
+    ms(arr,left,mid,inv);
+    ms(arr,mid+1,right,inv);
+    merge(arr,left,right, mid,inv);
 }
 
 int main(){
-    vector<int> arr={1,4,7,21,32,4,51,8,786754,67};
-    cout<<"No ot Total inversion is : "<<mergecount(arr,0,arr.size()-1);
-    return 0;
+    vector<int> arr={1,4,2,6,8,90,3};
+    int inv=0;
+    ms(arr,0,size(arr)-1,inv);
+    cout<<inv<<"\n";
 }
