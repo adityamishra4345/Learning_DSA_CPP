@@ -17,7 +17,7 @@ double power(double x,long long n){
 }
 int main(){
     
-    cout << power(2, INT32_MIN) << "\n"; 
+    cout << power(2, 342) << "\n"; 
     cout << power(2, -3) << "\n";   // 0.125
     cout << power(3, 5)  << "\n";   // 243
     
